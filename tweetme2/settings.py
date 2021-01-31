@@ -11,22 +11,24 @@ https://docs.djangoproject.com/en/2.2/ref/settings/
 """
 
 import os
-
+import dotenv 
+ 
 # Build paths inside the project like this: os.path.join(BASE_DIR, ...)
 BASE_DIR = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
-
-
-# Quick-start development settings - unsuitable for production
-# See https://docs.djangoproject.com/en/2.2/howto/deployment/checklist/
-
-# SECURITY WARNING: keep the secret key used in production secret!
-SECRET_KEY = '_tfg$a^^+a4lv$j2zqynv4-)2l%d_fx@nuqjk*c3k3(g0x2xwe'
-
+# Add .env variables anywhere before SECRET_KEY
+dotenv_file = os.path.join(BASE_DIR, ".env")
+if os.path.isfile(dotenv_file):
+   dotenv.load_dotenv(dotenv_file)
+ 
+# Update secret key
+SECRET_KEY = os.environ['DJANGO_SECRET_KEY'] # Instead of your actual secret key
+ 
 # SECURITY WARNING: don't run with debug turned on in production!
-DEBUG = True
-
-ALLOWED_HOSTS = []
-
+DEBUG = os.environ['DJANGO_DEBUG']
+ 
+ 
+ALLOWED_HOSTS = [os.environ['DJANGO_ALLOWED_HOSTS']]
+ 
 
 # Application definition
 
@@ -37,6 +39,8 @@ INSTALLED_APPS = [
     'django.contrib.sessions',
     'django.contrib.messages',
     'django.contrib.staticfiles',
+    # our apps
+    'tweets',
 ]
 
 MIDDLEWARE = [
