@@ -10,25 +10,28 @@ For the full list of settings and their values, see
 https://docs.djangoproject.com/en/2.2/ref/settings/
 """
 
+from dotenv import load_dotenv
 import os
-import dotenv 
- 
+
+
 # Build paths inside the project like this: os.path.join(BASE_DIR, ...)
 BASE_DIR = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
 # Add .env variables anywhere before SECRET_KEY
-dotenv_file = os.path.join(BASE_DIR, ".env")
-if os.path.isfile(dotenv_file):
-   dotenv.load_dotenv(dotenv_file)
- 
+#dotenv_file = os.path.join(BASE_DIR, ".env")
+#if os.path.isfile(dotenv_file):
+#   dotenv.load_dotenv(dotenv_file)
+#environ.Env.read_env(env_file=os.path.join(BASE_DIR, '.env'))
+load_dotenv(os.path.join(BASE_DIR, '.env')) 
 # Update secret key
-SECRET_KEY = os.environ['DJANGO_SECRET_KEY'] # Instead of your actual secret key
+SECRET_KEY=os.getenv('DJANGO_SECRET_KEY') # Instead of your actual secret key
  
 # SECURITY WARNING: don't run with debug turned on in production!
-DEBUG = os.environ['DJANGO_DEBUG']
+DEBUG = os.getenv('DJANGO_DEBUG')
  
  
-ALLOWED_HOSTS = [os.environ['DJANGO_ALLOWED_HOSTS']]
- 
+ALLOWED_HOSTS = [os.getenv('DJANGO_ALLOWED_HOSTS')]
+#ALLOWED_HOSTS = ['*'] 
+
 
 # Application definition
 

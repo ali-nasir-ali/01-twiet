@@ -3,11 +3,11 @@ from django.shortcuts import render
 from django.http import HttpResponse , Http404 , JsonResponse
  
 from .models import Tweet
- 
-# json.dumps for json
+
 def home_view(request,*args,**kwargs):
-   return HttpResponse('<h1> hello world </h1>')
- 
+   # return HttpResponse('<h1> hello world </h1>')
+    return render(request, "pages/home.html", context={}, status=200)
+
 def tweet_detail_view(request,tweet_id, *args,**kwargs):
    """
    rest api view
@@ -26,8 +26,3 @@ def tweet_detail_view(request,tweet_id, *args,**kwargs):
        status = 404
   
    return JsonResponse(data, status=status) # json.dumps for json type for content_type=application/json
-def tweet_detail_view(request,tweet_id,*args,**kwargs):
-     obj = Tweet.objects.get(id=tweet_id)
-     return HttpResponse(f"<h1>hello {tweet_id}</h1>")
-
-
